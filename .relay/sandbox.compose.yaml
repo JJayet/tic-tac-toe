@@ -1,0 +1,13 @@
+# The sandbox Relay starts to reproduce a bug: one Compose project per sandbox, removed after.
+# Relay sets APP_SOURCE (the copy of the code), APP_IMAGE, APP_PORT (host port), APP_CONTAINER_PORT and APP_BIND_ADDRESS.
+services:
+  app:
+    image: ${APP_IMAGE:-tic-tac-toe-sandbox}
+    # The image is built from the copy of the code, so it also works when Docker runs on another host.
+    build:
+      context: ${APP_SOURCE:?APP_SOURCE is required}
+      dockerfile: .relay/sandbox.Dockerfile
+    environment:
+      PORT: ${APP_CONTAINER_PORT:-3000}
+    ports:
+      - "${APP_BIND_ADDRESS:-127.0.0.1}:${APP_PORT:?APP_PORT is required}:${APP_CONTAINER_PORT:-3000}"

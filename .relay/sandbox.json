@@ -1,0 +1,11 @@
+{
+  "id": "tic-tac-toe-v1",
+  "compose": ".relay/sandbox.compose.yaml",
+  "port": 3000,
+  "steps": [
+    { "name": "build", "run": ["docker", "compose", "-p", "{project}", "-f", "{compose}", "build", "app"] },
+    { "name": "start", "run": ["docker", "compose", "-p", "{project}", "-f", "{compose}", "up", "-d", "--wait", "--no-deps", "app"] }
+  ],
+  "readiness": { "path": "/", "timeoutMs": 60000 },
+  "teardown": [["docker", "compose", "-p", "{project}", "-f", "{compose}", "down", "-v", "--rmi", "local", "--remove-orphans"]]
+}
