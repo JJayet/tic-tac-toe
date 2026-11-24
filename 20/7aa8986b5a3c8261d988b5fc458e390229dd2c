@@ -1,0 +1,25 @@
+.relay/sandbox.Dockerfile
+  s_ba6d29ffd60761::t_84b1a57384660b 1-17
+.relay/sandbox.compose.yaml
+  s_ba6d29ffd60761::t_84b1a57384660b 1-13
+.relay/sandbox.Dockerfile.dockerignore
+  s_ba6d29ffd60761::t_84b1a57384660b 1-4
+.relay/sandbox.json
+  s_ba6d29ffd60761::t_84b1a57384660b 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "207aa8986b5a3c8261d988b5fc458e390229dd2c",
+  "prompts": {},
+  "sessions": {
+    "s_ba6d29ffd60761": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a138d9be-23d9-4365-b3ce-686fa6d3d06d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Jonathan Jayet <github@jayet.io>"
+    }
+  }
+}
