@@ -57,7 +57,7 @@ describe('Game component', () => {
 
     const buttons = screen.getAllByRole('button');
 
-    const gameWithXWinner = [0, 4, 1, 2, 3, 6];
+    const gameWithXWinner = [0, 1, 2, 4, 6, 7];
     await Promise.all(
       gameWithXWinner.map(async (index) => {
         await user.click(buttons[index]);
