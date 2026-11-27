@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { appRender } from '@tests/renders/appRender';
 
+import { Reset } from '../reset/Reset';
 import { RandomColorsButton } from './RandomColorsButton';
 
 const buttonName = 'Couleurs aléatoires';
@@ -38,8 +39,9 @@ describe('RandomColorsButton component', () => {
     expect(handleClick).toHaveBeenCalledTimes(2);
   });
 
-  it('should stay rendered regardless of the game state', () => {
-    // The component takes no status prop: it is always rendered, unlike Reset.
+  it('should render without any status prop, so no game state can hide it', () => {
+    // The component takes no status prop: it is always rendered.
+    // Game-level behaviour across status changes is not covered by this unit test.
     appRender(<RandomColorsButton onClick={vi.fn()} />);
 
     expect(
@@ -47,17 +49,17 @@ describe('RandomColorsButton component', () => {
     ).toBeInTheDocument();
   });
 
-  it('should use the Replay base styles without random colour styling', () => {
-    appRender(<RandomColorsButton onClick={vi.fn()} />);
+  it('should share the exact class list of the Replay button, without inline style', () => {
+    // Reset renders the Replay button for status 'GameOver': compare against its real classes.
+    appRender(<Reset status="GameOver" onClick={vi.fn()} />);
+    const replayClassName = screen.getByRole('button', {
+      name: 'Replay',
+    }).className;
 
+    appRender(<RandomColorsButton onClick={vi.fn()} />);
     const button = screen.getByRole('button', { name: buttonName });
-    expect(button).toHaveClass(
-      'bg-sky-900',
-      'hover:bg-sky-800',
-      'text-white',
-      'rounded-lg',
-      'shadow-lg',
-    );
+
+    expect(button.className).toBe(replayClassName);
     expect(button).not.toHaveAttribute('style');
   });
 });
